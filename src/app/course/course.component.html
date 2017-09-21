@@ -24,7 +24,7 @@
 <tbody>
   <tr *ngFor="let course of courses">
     <td>{{course.course_id}}</td>
-    <td>{{course.instructor_id}}</td>
+    <td>{{course?.instructor?.first_name}}&nbsp;{{course?.instructor?.last_name}}</td>
     <td>{{course.subject}}</td>
     <td>{{course.course}}</td>
     <td class="text-center">

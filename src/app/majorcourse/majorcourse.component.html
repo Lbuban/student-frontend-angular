@@ -23,8 +23,8 @@
   <tbody>
     <tr *ngFor="let majorcourse of majorcourses">
       <td>{{majorcourse.major_course_id}}</td>
-      <td>{{majorcourse.major_id}}</td>
-      <td>{{majorcourse.course_id}}</td>
+      <td>{{majorcourse?.major?.major}}</td>
+      <td>{{majorcourse?.course?.course}}</td>
       <td class="text-center">
         <a class="btn btn-primary" [routerLink]="['/majorcourse/edit/', majorcourse.major_course_id]">Edit</a>&nbsp;
         <button (click)="deleteMajorcourse(majorcourse.major_course_id)" class="btn btn-danger">Delete</button>
