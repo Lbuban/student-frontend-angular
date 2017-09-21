@@ -7,21 +7,21 @@ import { NgForm } from '@angular/forms';
 import { DataService } from '../data.service'
 
 @Component({
-  selector: 'app-major-form',
-  templateUrl: './major-form.component.html',
-  styleUrls: ['./major-form.component.css']
+  selector: 'app-course-form',
+  templateUrl: './course-form.component.html',
+  styleUrls: ['./course-form.component.css']
 })
-export class MajorFormComponent implements OnInit {
+export class CourseFormComponent implements OnInit {
 
   successMessage: string;
   errorMessage: string;
 
- majordata: object;
+  course: object;
 
   getRecordForEdit(){
     this.route.params
-      .switchMap((params: Params) => this.dataService.getRecord("major", +params['id'])) //use some data from the params and then call the dataService and make another one. Chaining your asychronis calls together.
-      .subscribe(major => this.majordata = major);
+      .switchMap((params: Params) => this.dataService.getRecord("course", +params['id'])) //use some data from the params and then call the dataService and make another one. Chaining your asychronis calls together.
+      .subscribe(course => this.course = course);
   }
 
   constructor(
@@ -38,21 +38,20 @@ export class MajorFormComponent implements OnInit {
 
   }
 
-  saveMajor(major: NgForm){
-    if(typeof major.value.major_id === "number"){
-      this.dataService.editRecord("major", major.value, major.value.major_id)
+  saveCourse(course: NgForm){
+    if(typeof course.value.course_id === "number"){
+      this.dataService.editRecord("course", course.value, course.value.course_id)
           .subscribe(
-            major => this.successMessage = "Record updated successfully",
+            course => this.successMessage = "Record updated successfully",
             error =>  this.errorMessage = <any>error);
     }else{
-      this.dataService.addRecord("major", major.value)
+      this.dataService.addRecord("course", course.value)
           .subscribe(
-            major => this.successMessage = "Record added successfully",
+            course => this.successMessage = "Record added successfully",
             error =>  this.errorMessage = <any>error);
-            this.majordata = {};
+            this.course = {};
     }
 
   }
 
 }
-

@@ -20,7 +20,7 @@ export class StudentFormComponent implements OnInit {
 
   getRecordForEdit(){
     this.route.params
-      .switchMap((params: Params) => this.dataService.getRecord("student", +params['id']))
+      .switchMap((params: Params) => this.dataService.getRecord("student", +params['id'])) //use some data from the params and then call the dataService and make another one. Chaining your asychronis calls together.
       .subscribe(student => this.student = student);
   }
 
@@ -32,8 +32,8 @@ export class StudentFormComponent implements OnInit {
 
   ngOnInit() {
     this.route.params
-      .subscribe((params: Params) => {
-        (+params['id']) ? this.getRecordForEdit() : null;
+      .subscribe((params: Params) => { 
+        (+params['id']) ? this.getRecordForEdit() : null; //if parameter called ID, call getRecrodForEdit if not, do nothing.
       });
 
   }
@@ -42,12 +42,12 @@ export class StudentFormComponent implements OnInit {
     if(typeof student.value.student_id === "number"){
       this.dataService.editRecord("student", student.value, student.value.student_id)
           .subscribe(
-            student => this.successMessage = "Record updated succesfully",
+            student => this.successMessage = "Record updated successfully",
             error =>  this.errorMessage = <any>error);
     }else{
       this.dataService.addRecord("student", student.value)
           .subscribe(
-            student => this.successMessage = "Record added succesfully",
+            student => this.successMessage = "Record added successfully",
             error =>  this.errorMessage = <any>error);
             this.student = {};
     }

@@ -19,6 +19,12 @@ import { GradeFormComponent }   from '../grade-form/grade-form.component';
 import { InstructorComponent }   from '../instructor/instructor.component';
 import { InstructorFormComponent }   from '../instructor-form/instructor-form.component';
 
+import { MajorcourseComponent }   from '../majorcourse/majorcourse.component';
+import { MajorcourseFormComponent }   from '../majorcourse-form/majorcourse-form.component';
+
+import { StudentcourseComponent }   from '../studentcourse/studentcourse.component';
+import { StudentcourseFormComponent }   from '../studentcourse-form/studentcourse-form.component';
+
 
 import { HomeComponent }   from '../home/home.component';
  
@@ -49,6 +55,14 @@ const routes: Routes = [
   { path: 'instructor',  component: InstructorComponent },
   { path: 'instructor/edit/:id', component: InstructorFormComponent },
   { path: 'instructor/add', component: InstructorFormComponent },
+
+  { path: 'majorcourse',  component: MajorcourseComponent },
+  { path: 'majorcourse/edit/:id', component: MajorcourseFormComponent },
+  { path: 'majorcourse/add', component: MajorcourseFormComponent },
+
+  { path: 'studentcourse',  component: StudentcourseComponent },
+  { path: 'studentcourse/edit/:id', component: StudentcourseFormComponent },
+  { path: 'studentcourse/add', component: StudentcourseFormComponent },
 ];
  
 @NgModule({
