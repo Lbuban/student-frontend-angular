@@ -15,6 +15,8 @@ import { DataService } from './data.service';
 import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
 import { StudentFormComponent } from './student-form/student-form.component';
 import { StatusMessageComponent } from './status-message/status-message.component';
+import { MajorComponent } from './major/major.component';
+import { MajorFormComponent } from './major-form/major-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { StatusMessageComponent } from './status-message/status-message.componen
     HomeComponent,
     DeleteConfirmComponent,
     StudentFormComponent,
-    StatusMessageComponent
+    StatusMessageComponent,
+    MajorComponent,
+    MajorFormComponent
   ],
   imports: [
     BrowserModule,
