@@ -15,7 +15,7 @@ export class AssignmentFormComponent implements OnInit {
 
   successMessage: string;
   errorMessage: string;
-
+  students;
   assignment: object;
 
   getRecordForEdit(){
@@ -35,7 +35,16 @@ export class AssignmentFormComponent implements OnInit {
       .subscribe((params: Params) => { 
         (+params['id']) ? this.getRecordForEdit() : null; //if parameter called ID, call getRecrodForEdit if not, do nothing.
       });
+  
+     this.getStudents();
+  }
 
+
+  getStudents() {
+    this.dataService.getRecords("student")
+      .subscribe(
+        students => this.students = students,
+        error =>  this.errorMessage = <any>error);
   }
 
   saveAssignment(assignment: NgForm){
