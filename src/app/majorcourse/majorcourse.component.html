@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
-    <li class="active">Majorcourses</li>
+    <li class="active">Major/Courses</li>
 </ol>
 
 <br/>
@@ -11,7 +11,7 @@
 
 <a class="btn btn-primary" routerLink="/majorcourse/add">Add Major/Course</a>
 
-<table class="table table-striped table-bordered" id="dataTable" style="width:100%">
+<table class="table table-hover table-bordered" id="dataTable" style="width:100%">
   <thead>
     <tr>
       <th>ID</th>
@@ -26,8 +26,8 @@
       <td>{{majorcourse?.major?.major}}</td>
       <td>{{majorcourse?.course?.course}}</td>
       <td class="text-center">
-        <a class="btn btn-primary" [routerLink]="['/majorcourse/edit/', majorcourse.major_course_id]">Edit</a>&nbsp;
-        <button (click)="deleteMajorcourse(majorcourse.major_course_id)" class="btn btn-danger">Delete</button>
+        <a class="btn btn-primary glyphicon glyphicon-pencil" [routerLink]="['/majorcourse/edit/', majorcourse.major_course_id]"></a>&nbsp;
+        <button (click)="deleteMajorcourse(majorcourse.major_course_id)" class="btn btn-danger glyphicon glyphicon-trash"></button>
       </td>
     </tr>
   </tbody>

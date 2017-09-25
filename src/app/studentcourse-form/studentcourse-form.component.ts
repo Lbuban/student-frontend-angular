@@ -15,7 +15,8 @@ export class StudentcourseFormComponent implements OnInit {
 
   successMessage: string;
   errorMessage: string;
-
+  courses;
+  students;
   studentcourse: object;
 
   getRecordForEdit(){
@@ -36,6 +37,22 @@ export class StudentcourseFormComponent implements OnInit {
         (+params['id']) ? this.getRecordForEdit() : null; //if parameter called ID, call getRecrodForEdit if not, do nothing.
       });
 
+      this.getCourses();
+      this.getStudents();
+  }
+
+  getStudents() {
+    this.dataService.getRecords("student")
+      .subscribe(
+        students => this.students = students,
+        error =>  this.errorMessage = <any>error);
+  }
+  
+  getCourses() {
+    this.dataService.getRecords("course")
+      .subscribe(
+        courses => this.courses = courses,
+        error =>  this.errorMessage = <any>error);
   }
 
   saveStudentcourse(studentcourse: NgForm){

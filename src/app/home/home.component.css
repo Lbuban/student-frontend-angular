@@ -1,0 +1,12 @@
+img {
+    width: 100%;
+    border: 10px solid #aea7a9;;
+    margin-top: 20px;
+}
+
+#welcome {
+    color:  #aea7a9;
+    font-size: 32px;
+    padding-left: 100px;
+    
+}

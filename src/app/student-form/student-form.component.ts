@@ -2,21 +2,22 @@ import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
-import { NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms'; //added in order for forms to load. 
 
 import { DataService } from '../data.service'
 
 @Component({
   selector: 'app-student-form',
-  templateUrl: './student-form.component.html',
-  styleUrls: ['./student-form.component.css']
+  templateUrl: './student-form.component.html', //tells where corresponding HTML file lives.
+  styleUrls: ['./student-form.component.css'] //tells where corresponding css file lives.
 })
 export class StudentFormComponent implements OnInit {
 
+  //these describe what kind of data these variables can have - i.e. string, number, array, etc. 
   successMessage: string;
   errorMessage: string;
-
   student: object;
+  majordata; //instead of "majors" changed to "majordata" because "majors" conflicts with angular syntax. Added this so that we can use majordata instead of just listing major id on the form.
 
   getRecordForEdit(){
     this.route.params
@@ -33,12 +34,20 @@ export class StudentFormComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe((params: Params) => { 
-        (+params['id']) ? this.getRecordForEdit() : null; //if parameter called ID, call getRecrodForEdit if not, do nothing.
+        (+params['id']) ? this.getRecordForEdit() : null; //if parameter called ID, call getRecordForEdit if not, do nothing.
       });
 
+      this.getMajors(); //call getMajors on initialization of page load - this is needed for the dropdown feature, so that all majors show.
   }
 
-  saveStudent(student: NgForm){
+  getMajors() { //pulled this from the major.component.ts file - this is needed for the dropdown feature, so that all majors show.
+    this.dataService.getRecords("major")
+      .subscribe(
+        majors => this.majordata = majors,
+        error =>  this.errorMessage = <any>error);
+  }
+
+  saveStudent(student: NgForm){ //function to save a student onece one has been added.
     if(typeof student.value.student_id === "number"){
       this.dataService.editRecord("student", student.value, student.value.student_id)
           .subscribe(

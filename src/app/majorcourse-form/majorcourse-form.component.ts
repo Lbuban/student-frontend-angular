@@ -15,7 +15,7 @@ export class MajorcourseFormComponent implements OnInit {
 
   successMessage: string;
   errorMessage: string;
-
+  courses;
   majorcourse: object;
 
   getRecordForEdit(){
@@ -36,8 +36,16 @@ export class MajorcourseFormComponent implements OnInit {
         (+params['id']) ? this.getRecordForEdit() : null; //if parameter called ID, call getRecrodForEdit if not, do nothing.
       });
 
+      this.getCourses();
+
   }
 
+  getCourses() {
+    this.dataService.getRecords("course")
+      .subscribe(
+        courses => this.courses = courses,
+        error =>  this.errorMessage = <any>error);
+  }
   saveMajorcourse(majorcourse: NgForm){
     if(typeof majorcourse.value.majorcourse_id === "number"){
       this.dataService.editRecord("majorcourse", majorcourse.value, majorcourse.value.major_course_id)

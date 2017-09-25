@@ -11,7 +11,7 @@
 
 <a class="btn btn-primary" routerLink="/major/add">Add Major</a>
 
-<table class="table table-striped table-bordered" id="dataTable" style="width:100%">
+<table class="table table-hover table-bordered" id="dataTable" style="width:100%">
 <thead>
   <tr>
     <th>ID</th>
@@ -26,8 +26,8 @@
     <td>{{major.major}}</td>
     <td>{{major.sat}}</td>
     <td class="text-center">
-      <a class="btn btn-primary" [routerLink]="['/major/edit/', major.major_id]">Edit</a>&nbsp;
-      <button (click)="deleteMajor(major.major_id)" class="btn btn-danger">Delete</button>
+      <a class="btn btn-primary glyphicon glyphicon-pencil" [routerLink]="['/major/edit/', major.major_id]"></a>&nbsp;
+      <button (click)="deleteMajor(major.major_id)" class="btn btn-danger glyphicon glyphicon-trash"></button>
     </td>
   </tr>
 </tbody>

@@ -17,6 +17,8 @@ export class AssignmentFormComponent implements OnInit {
   errorMessage: string;
   students;
   assignment: object;
+  grades;
+  courses;
 
   getRecordForEdit(){
     this.route.params
@@ -37,6 +39,8 @@ export class AssignmentFormComponent implements OnInit {
       });
   
      this.getStudents();
+     this.getGrades();
+     this.getCourses();
   }
 
 
@@ -44,6 +48,20 @@ export class AssignmentFormComponent implements OnInit {
     this.dataService.getRecords("student")
       .subscribe(
         students => this.students = students,
+        error =>  this.errorMessage = <any>error);
+  }
+
+  getGrades() {
+    this.dataService.getRecords("grade")
+      .subscribe(
+        grades => this.grades = grades,
+        error =>  this.errorMessage = <any>error);
+  }
+
+  getCourses() {
+    this.dataService.getRecords("course")
+      .subscribe(
+        courses => this.courses = courses,
         error =>  this.errorMessage = <any>error);
   }
 

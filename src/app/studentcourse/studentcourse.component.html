@@ -11,7 +11,7 @@
 
 <a class="btn btn-primary" routerLink="/studentcourse/add">Add Student/Course</a>
 
-<table class="table table-striped table-bordered" id="dataTable" style="width:100%">
+<table class="table table-hover table-bordered" id="dataTable" style="width:100%">
   <thead>
     <tr>
       <th>ID</th>
@@ -26,8 +26,8 @@
       <td>{{studentcourse?.student?.first_name}}&nbsp;{{studentcourse?.student?.last_name}}</td>
       <td>{{studentcourse?.course?.course}}</td>
       <td class="text-center">
-        <a class="btn btn-primary" [routerLink]="['/studentcourse/edit/', studentcourse.student_course_id]">Edit</a>&nbsp;
-        <button (click)="deleteStudentcourse(studentcourse.student_course_id)" class="btn btn-danger">Delete</button>
+        <a class="btn btn-primary glyphicon glyphicon-pencil" [routerLink]="['/studentcourse/edit/', studentcourse.student_course_id]"></a>&nbsp;
+        <button (click)="deleteStudentcourse(studentcourse.student_course_id)" class="btn btn-danger glyphicon glyphicon-trash"></button>
       </td>
     </tr>
   </tbody>
