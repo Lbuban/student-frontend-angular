@@ -37,3 +37,10 @@ h1, h2 {
     color: #ffffff;
 }
    
+.ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #14DB1E; /* green */
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #D31010; /* red */
+  }

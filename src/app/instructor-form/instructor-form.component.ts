@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit }      from '@angular/core';
+import { Component, OnInit, ViewChild }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 import { NgForm } from '@angular/forms';
@@ -12,6 +12,9 @@ import { DataService } from '../data.service'
   styleUrls: ['./instructor-form.component.css']
 })
 export class InstructorFormComponent implements OnInit {
+
+  instructorForm: NgForm;
+  @ViewChild('instructorForm') currentForm: NgForm;
 
   successMessage: string;
   errorMessage: string;
@@ -53,5 +56,63 @@ export class InstructorFormComponent implements OnInit {
     }
 
   }
+  ngAfterViewChecked() {
+    this.formChanged();
+  }
 
+  formChanged() {
+    //if the form didn't change then do nothing
+    if (this.currentForm === this.instructorForm) { return; }
+    //set the form to the current form for comparison
+    this.instructorForm = this.currentForm;
+    //subscribe to form changes and send the changes to the onValueChanged method
+    this.instructorForm.valueChanges
+      .subscribe(data => this.onValueChanged(data)
+      );
+  }
+ 
+  onValueChanged(data?: any) {
+    let form = this.instructorForm.form;
+
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+
+  //start out the errors as an emtpy string
+  formErrors = {
+    'first_name': '',
+    'last_name': '',
+    'years_of_experienced': '',
+    'tenured': '',
+  };
+
+  validationMessages = {
+    'first_name': {
+      'required': 'First name is required.',
+      'minlength':'Name must be at least 2 characters long.',
+      'maxlength': 'Name must not exceed 30 characters.'
+    },
+    'last_name': {
+      'minlength': 'Name must be at least 2 characters long.',
+      'maxlength': 'Name must not exceed 30 characters.'
+    },
+    'years_of_experience': {
+      'required': 'This field is required.',
+      'maxlength': 'This field must not exceed 30 characters.'
+    },
+    'tenured': {
+      'required': 'This field is required.',
+      'maxlength': 'SAT score cannot exceed 1 characters long.'
+    },
+  };
 }

@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit }      from '@angular/core';
+import { Component, OnInit, ViewChild }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 import { NgForm } from '@angular/forms';
@@ -12,6 +12,9 @@ import { DataService } from '../data.service'
   styleUrls: ['./assignment-form.component.css']
 })
 export class AssignmentFormComponent implements OnInit {
+
+  assignmentForm: NgForm;
+  @ViewChild('assignmentForm') currentForm: NgForm;
 
   successMessage: string;
   errorMessage: string;
@@ -80,5 +83,64 @@ export class AssignmentFormComponent implements OnInit {
     }
 
   }
+
+  ngAfterViewChecked() {
+    this.formChanged();
+  }
+
+  formChanged() {
+    //if the form didn't change then do nothing
+    if (this.currentForm === this.assignmentForm) { return; }
+    //set the form to the current form for comparison
+    this.assignmentForm = this.currentForm;
+    //subscribe to form changes and send the changes to the onValueChanged method
+    this.assignmentForm.valueChanges
+      .subscribe(data => this.onValueChanged(data)
+      );
+  }
+ 
+  onValueChanged(data?: any) {
+    let form = this.assignmentForm.form;
+
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+
+  //start out the errors as an empty string
+  formErrors = {
+    'student_id': '',
+    'assignment_nbr': '',
+    'grade_id': '',
+    'course_id': '',
+  };
+
+  validationMessages = {
+    'student_id': {
+      'required': 'You must select a Student ID'
+    },
+    'assignment_nbr': {
+      'required': 'You must enter an Assignment number'
+    },
+    'grade_id': {
+      'required': 'You must select a Grade ID'
+    },
+    'course_id': {
+      'required': 'You must select a Course ID'
+    },
+
+  };
+
+
+
 
 }

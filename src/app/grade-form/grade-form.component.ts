@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit }      from '@angular/core';
+import { Component, OnInit, ViewChild }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 import { NgForm } from '@angular/forms';
@@ -12,6 +12,9 @@ import { DataService } from '../data.service'
   styleUrls: ['./grade-form.component.css']
 })
 export class GradeFormComponent implements OnInit {
+
+  gradeForm: NgForm;
+  @ViewChild('gradeForm') currentForm: NgForm;
 
   successMessage: string;
   errorMessage: string;
@@ -53,5 +56,52 @@ export class GradeFormComponent implements OnInit {
     }
 
   }
+  ngAfterViewChecked() {
+    this.formChanged();
+  }
+
+  formChanged() {
+    //if the form didn't change then do nothing
+    if (this.currentForm === this.gradeForm) { return; }
+    //set the form to the current form for comparison
+    this.gradeForm = this.currentForm;
+    //subscribe to form changes and send the changes to the onValueChanged method
+    this.gradeForm.valueChanges
+      .subscribe(data => this.onValueChanged(data)
+      );
+  }
+ 
+  onValueChanged(data?: any) {
+    let form = this.gradeForm.form;
+
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+
+  //start out the errors as an emtpy string
+  formErrors = {
+    'grade': '',
+  };
+
+  validationMessages = {
+    'grade': {
+      'required': 'Grade is required.',
+      'maxlength': 'Grade description must not exceed 30 characters.'
+    },
+  };
+
+
+
 
 }
+

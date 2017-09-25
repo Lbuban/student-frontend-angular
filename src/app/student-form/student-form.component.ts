@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit }      from '@angular/core';
+import { Component, OnInit, ViewChild }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 import { NgForm } from '@angular/forms'; //added in order for forms to load. 
@@ -12,6 +12,9 @@ import { DataService } from '../data.service'
   styleUrls: ['./student-form.component.css'] //tells where corresponding css file lives.
 })
 export class StudentFormComponent implements OnInit {
+
+  studentForm: NgForm;
+  @ViewChild('studentForm') currentForm: NgForm;
 
   //these describe what kind of data these variables can have - i.e. string, number, array, etc. 
   successMessage: string;
@@ -62,5 +65,72 @@ export class StudentFormComponent implements OnInit {
     }
 
   }
+
+  ngAfterViewChecked() {
+    this.formChanged();
+  }
+
+  formChanged() {
+    //if the form didn't change then do nothing
+    if (this.currentForm === this.studentForm) { return; }
+    //set the form to the current form for comparison
+    this.studentForm = this.currentForm;
+    //subscribe to form changes and send the changes to the onValueChanged method
+    this.studentForm.valueChanges
+      .subscribe(data => this.onValueChanged(data)
+      );
+  }
+ 
+  onValueChanged(data?: any) {
+    let form = this.studentForm.form;
+
+    for (const field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+
+  //start out the errors as an emtpy string
+  formErrors = {
+    'first_name': '',
+    'last_name': '',
+    'start_date': '',
+    'gpa': '',
+    'sat': '',
+  };
+
+  validationMessages = {
+    'first_name': {
+      'required': 'First name is required.',
+      'minlength':'Name must be at least 2 characters long.',
+      'maxlength': 'Name must not exceed 30 characters.'
+    },
+    'last_name': {
+      'minlength': 'Name must be at least 2 characters long.',
+      'maxlength': 'Name must not exceed 30 characters.'
+    },
+    'start_date': {
+      'pattern': 'Start date should be in the following format: YYYY-MM-DD.'
+    },
+    'gpa': {
+      'pattern': 'GPA must be a decimal'
+    },
+    'sat': {
+      'pattern': 'SAT score must be between 400 and 1600',
+      'maxlength': 'SAT score cannot exceed 4 characters long.'
+    },
+
+  };
+
+
+
 
 }
