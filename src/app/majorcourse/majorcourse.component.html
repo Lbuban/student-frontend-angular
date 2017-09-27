@@ -7,28 +7,30 @@
 
 <app-status-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-status-message>
 
-<h2>Major/Courses</h2>
+<section @fadeInAnimation>  
+  <h2>Major/Courses</h2>
 
-<a class="btn btn-primary" routerLink="/majorcourse/add">Add Major/Course</a>
+  <a class="btn btn-primary" routerLink="/majorcourse/add">Add Major/Course</a>
 
-<table class="table table-hover table-bordered" id="dataTable" style="width:100%">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Major ID</th>
-      <th>Course ID</th>
-      <th>Admin</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let majorcourse of majorcourses">
-      <td>{{majorcourse.major_course_id}}</td>
-      <td>{{majorcourse?.major?.major}}</td>
-      <td>{{majorcourse?.course?.course}}</td>
-      <td class="text-center">
-        <a class="btn btn-primary glyphicon glyphicon-pencil" [routerLink]="['/majorcourse/edit/', majorcourse.major_course_id]"></a>&nbsp;
-        <button (click)="deleteMajorcourse(majorcourse.major_course_id)" class="btn btn-danger glyphicon glyphicon-trash"></button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table table-hover table-bordered" id="dataTable" style="width:100%">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Major ID</th>
+        <th>Course ID</th>
+        <th>Admin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let majorcourse of majorcourses">
+        <td>{{majorcourse.major_course_id}}</td>
+        <td>{{majorcourse?.major?.major}}</td>
+        <td>{{majorcourse?.course?.course}}</td>
+        <td class="text-center">
+          <a class="btn btn-primary glyphicon glyphicon-pencil" [routerLink]="['/majorcourse/edit/', majorcourse.major_course_id]"></a>&nbsp;
+          <button (click)="deleteMajorcourse(majorcourse.major_course_id)" class="btn btn-danger glyphicon glyphicon-trash"></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>

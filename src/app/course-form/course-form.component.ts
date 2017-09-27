@@ -90,15 +90,13 @@ export class CourseFormComponent implements OnInit {
 
   //start out the errors as an emtpy string
   formErrors = {
-    // 'instructor_id': '',
+  
     'subject': '',
     'course': '',
   };
 
   validationMessages = {
-    // 'instructor_id': {
-    //   'required': 'Instructor ID is required.',
-    // },
+  
     'subject': {
       'required': 'Subject is required.',
     },

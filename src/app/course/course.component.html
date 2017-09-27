@@ -7,30 +7,32 @@
 
 <app-status-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-status-message>
 
-<h2>Courses</h2>
+<section @fadeInAnimation>  
+  <h2>Courses</h2>
 
-<a class="btn btn-primary" routerLink="/course/add">Add Course</a>
+  <a class="btn btn-primary" routerLink="/course/add">Add Course</a>
 
-<table class="table table-hover table-bordered" id="dataTable" style="width:100%">
-<thead>
-  <tr>
-    <th>ID</th>
-    <th>Instructor ID</th>
-    <th>Subject</th>
-    <th>Course</th>
-    <th>Admin</th>
-  </tr>
-</thead>
-<tbody>
-  <tr *ngFor="let course of courses">
-    <td>{{course.course_id}}</td>
-    <td>{{course?.instructor?.first_name}}&nbsp;{{course?.instructor?.last_name}}</td>
-    <td>{{course.subject}}</td>
-    <td>{{course.course}}</td>
-    <td class="text-center">
-      <a class="btn btn-primary glyphicon glyphicon-pencil" [routerLink]="['/course/edit/', course.course_id]"></a>&nbsp;
-      <button (click)="deleteCourse(course.course_id)" class="btn btn-danger glyphicon glyphicon-trash"></button>
-    </td>
-  </tr>
-</tbody>
-</table>
+  <table class="table table-hover table-bordered" id="dataTable" style="width:100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Instructor ID</th>
+      <th>Subject</th>
+      <th>Course</th>
+      <th>Admin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let course of courses">
+      <td>{{course.course_id}}</td>
+      <td>{{course?.instructor?.first_name}}&nbsp;{{course?.instructor?.last_name}}</td>
+      <td>{{course.subject}}</td>
+      <td>{{course.course}}</td>
+      <td class="text-center">
+        <a class="btn btn-primary glyphicon glyphicon-pencil" [routerLink]="['/course/edit/', course.course_id]"></a>&nbsp;
+        <button (click)="deleteCourse(course.course_id)" class="btn btn-danger glyphicon glyphicon-trash"></button>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+</section>

@@ -3,11 +3,14 @@ import { MdDialog, MdDialogRef } from '@angular/material';//this is pulling in t
 
 import { DataService } from '../data.service' //this is pulling info from the data service
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component' //this is pulling in the deleteConfirm component used to delete a student's record. 
+import { fadeInAnimation } from '../animations/fade-in.animation';
 
 @Component({
   selector: 'app-student',//each component has it's own selector.
   templateUrl: './student.component.html', //path to find the corresponding HTML file.
   styleUrls: ['./student.component.css'],//path to find the corresponding css file.
+  animations: [fadeInAnimation],
+  host: { '[@fadeInAnimation]': '' }
 })
 export class StudentComponent implements OnInit { //tells the browser to use the StudentComponent upon initialization of page.
 
